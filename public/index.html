@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Strip Away</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="url-input">
+      <p>http://</p>
+      <input type="text" name="text-box" class="text-box">
+      <button>Get Text</button>
+    </div>
+    <div class="tabs">
+      <p data-tab="0">Plain Text</p>
+      <p data-tab="1">Markdown</p>
+      <p data-tab="2">Viewer</p>
+    </div>
+    <div class="display-area">
+      <textarea class="plain-text"></textarea>
+      <textarea class="markdown"></textarea>
+      <div class="viewer"></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

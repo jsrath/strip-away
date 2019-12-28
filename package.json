@@ -1,0 +1,29 @@
+{
+  "name": "strip-away",
+  "version": "1.0.0",
+  "description": "Strip away styles and scripts and get plain text from websites",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "html-to-text": "^5.1.1",
+    "prettier": "^1.19.1",
+    "puppeteer": "^2.0.0",
+    "sanitize-html": "^1.20.1",
+    "turndown": "^5.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsrath/strip-away.git"
+  },
+  "author": "jsrath",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsrath/strip-away/issues"
+  },
+  "homepage": "https://github.com/jsrath/strip-away#readme"
+}
