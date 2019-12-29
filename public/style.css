@@ -1,5 +1,5 @@
-*:not(textarea) {
-  font-family: 'Courier Prime', monospace;
+* {
+  font-family: monospace;
 }
 
 .container {
@@ -19,24 +19,53 @@
 .url-input p {
   margin: 0;
   margin-bottom: 2px;
+  font-size: 14px;
 }
 
 .text-box {
   margin: 0 10px 0 2px;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
   width: 300px;
   font-size: 16px;
   padding: 11px 0 2px 8px;
 }
 
-button {
+.text-box:focus {
+  outline: 0;
+}
+
+.submit-button {
+  line-height: 1;
   background: none;
   border: none;
-  border: 1px solid black;
+  border: 1px solid #000;
   font-size: 14px;
-  padding: 8px 16px;
+  padding: 10px 16px 8px;
   margin: 0;
+  cursor: pointer;
+}
+
+
+.spinner {
+  display: none;
+  width: 25px;
+  height: 25px;
+  background-color: #000;
+  margin: 50px auto;
+  animation: spinner-rotate 1.2s infinite ease-in-out;
+}
+
+@keyframes spinner-rotate {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
 }
 
 .display-area {
@@ -45,8 +74,7 @@ button {
   margin-top: 0;
 }
 
-.display-area > div,
-.display-area > textarea {
+.display-area > div {
   display: none;
 }
 
@@ -55,7 +83,12 @@ button {
 .viewer {
   width: 90%;
   padding: 20px;
-  border: 1px solid black;
+  border: 2px solid #000;
+}
+
+.plain-text,
+.markdown {
+  white-space: pre-wrap;
 }
 
 .viewer {
@@ -70,14 +103,22 @@ button {
 }
 
 .tabs p {
-  width: 100px;
+  width: 120px;
   padding: 10px 20px;
-  border: 1px solid black;
-  margin-bottom: -1px;
+  border: 1px solid #777;
+  margin: 0 -1px -1px 0;
+  font-weight: 700;
+  color: #777;
 }
 
 .tabs .show,
 .display-area .show,
 .show {
   display: flex;
+}
+
+.tabs p.selected-tab {
+  color: #000;
+  border: 2px solid #000;
+  border-bottom: 0;
 }
