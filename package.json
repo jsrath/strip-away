@@ -5,9 +5,9 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
-    "html-to-text": "^5.1.1",
     "prettier": "^1.19.1",
     "puppeteer": "^2.0.0",
+    "remove-markdown": "^0.3.0",
     "sanitize-html": "^1.20.1",
     "turndown": "^5.0.3"
   },

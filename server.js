@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
-const htmlToText = require('html-to-text');
 const TurndownService = require('turndown');
 const sanitizeHtml = require('sanitize-html');
 const prettier = require('prettier');
 const express = require('express');
+const removeMarkdown = require('remove-markdown');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 async function returnHTML(url) {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--single-process'],
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   });
   const page = await browser.newPage();
   await page.goto(decodeURIComponent(url));
@@ -22,32 +22,17 @@ async function returnHTML(url) {
 }
 
 function cleanHTML(html) {
-  const sanitized = sanitizeHtml(prettier.format(html, { parser: 'html', printWidth: 500 }), { allowedAttributes: { code: ['*'], pre: ['*'] } });
-  return sanitized.replace(/(^[ \t]*\n)/gm, '');
-}
-
-function returnPlainText(html) {
-  const cleaned = cleanHTML(html);
-  const text = htmlToText.fromString(cleaned, {
-    tables: true,
-    wordwrap: false,
-    ignoreHref: true,
-    ignoreImage: true,
-    unorderedListItemPrefix: '-',
+  const sanitized = sanitizeHtml(html, {
+    allowedAttributes: { code: ['*'], pre: ['*'] },
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['h1', 'h2', 'title', 'sup']),
+    exclusiveFilter: frame => frame.tag === 'title' || frame.tag === 'sup' || frame.tag === 'iframe'
   });
-  return cleanUpBlankLines(text);
-}
-
-function cleanUpBlankLines(text) {
-  const lineEnd = text.match(/\r\n/gm) ? '\r\n' : '\n';
-  const regExp = new RegExp(`(${lineEnd}){3,}`, 'gm');
-  return text.replace(regExp, `${lineEnd}${lineEnd}`).trim();
+  return sanitized;
 }
 
 function returnMarkdown(html) {
-  const cleaned = cleanHTML(html);
   const turndownService = new TurndownService({ codeBlockStyle: 'fenced', bulletListMarker: '-' });
-  const markdown = turndownService.turndown(cleaned);
+  const markdown = turndownService.turndown(html);
   return prettier.format(markdown, { parser: 'markdown' });
 }
 
@@ -58,10 +43,10 @@ app.get('/api', async (req, res) => {
   if (req.query.url) {
     const url = encodeURIComponent(req.query.url);
     const raw = await returnHTML(url);
-    const plain = returnPlainText(raw);
-    const markdown = returnMarkdown(raw);
-    const viewer = cleanHTML(raw);
-    const output = { plain, markdown, viewer, raw };
+    const simplified = cleanHTML(raw);
+    const markdown = returnMarkdown(simplified);
+    const plain = removeMarkdown(markdown);
+    const output = { plain, markdown, simplified, raw };
     res.json(output);
   }
 });

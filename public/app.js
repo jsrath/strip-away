@@ -2,7 +2,7 @@
 const displayArea = document.querySelector('.display-area');
 const plainTextArea = document.querySelector('.plain-text');
 const markdownArea = document.querySelector('.markdown');
-const viewerArea = document.querySelector('.viewer');
+const simplifiedArea = document.querySelector('.simplified');
 const urlInput = document.querySelector('.url-input');  
 const tabs = document.querySelector('.tabs');
 const spinner = document.querySelector('.spinner');
@@ -50,8 +50,8 @@ function setDisplayArea(option = 0) {
       break;
 
     case 2:
-      areaToShow[0] = viewerArea;
-      viewerArea.innerHTML = data.viewer;
+      areaToShow[0] = simplifiedArea;
+      simplifiedArea.innerHTML = data.simplified;
       break;
 
     default:
