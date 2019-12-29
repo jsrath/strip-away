@@ -9,7 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 async function returnHTML(url) {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--single-process'],
+  });
   const page = await browser.newPage();
   await page.goto(decodeURIComponent(url));
   await page.waitFor(1000);
