@@ -2,17 +2,18 @@
   font-family: 'Chivo', sans-serif;
 }
 
-.container>h1, .container>h3 {
+.container > h1,
+.container > h3 {
   text-align: center;
   margin-bottom: 0;
   font-weight: 400;
 }
 
-.container>h1 {
+.container > h1 {
   font-size: 28px;
 }
 
-.container>h3 {
+.container > h3 {
   font-size: 18px;
 }
 
@@ -87,11 +88,13 @@
   margin: 0 0 50px;
 }
 
-.display-area>div {
+.display-area > div {
   display: none;
 }
 
-.plain-text, .markdown, .simplified {
+.plain-text,
+.markdown,
+.simplified {
   width: 90%;
   padding: 20px;
   border: 2px solid #000;
@@ -99,7 +102,8 @@
   white-space: pre-wrap;
 }
 
-.plain-text, .markdown {
+.plain-text,
+.markdown {
   white-space: pre-wrap;
 }
 
@@ -122,7 +126,9 @@
   color: #777;
 }
 
-.tabs .show, .display-area .show, .show {
+.tabs .show,
+.display-area .show,
+.show {
   display: flex;
 }
 
@@ -130,4 +136,20 @@
   color: #000;
   border: 2px solid #000;
   border-bottom: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .url-input {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text-box {
+    text-align: center;
+  }
+
+  .submit-button {
+    margin-top: 30px;
+  }
 }
