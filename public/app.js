@@ -48,26 +48,26 @@ function setDisplayArea(option = 0) {
   handleTabs(option);
   clearDisplayArea();
   const data = JSON.parse(localStorage.getItem('stripaway'));
-  const areaToShow = [];
+  let areaToShow;
   switch (option) {
     case 1:
-      areaToShow[0] = markdownArea;
+      areaToShow = markdownArea;
       markdownArea.innerHTML = data.markdown;
       break;
 
     case 2:
-      areaToShow[0] = simplifiedArea;
+      areaToShow = simplifiedArea;
       simplifiedArea.innerHTML = data.simplified;
       break;
 
     default:
-      areaToShow[0] = plainTextArea;
+      areaToShow = plainTextArea;
       plainTextArea.innerHTML = data.plain;
       break;
   }
 
   toggleClass(spinner, false);
-  toggleClass(areaToShow[0], true);
+  toggleClass(areaToShow, true);
 }
 
 function clearDisplayArea() {
