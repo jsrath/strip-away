@@ -5,7 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
-    "prettier": "^1.19.1",
+    "html-minifier": "^4.0.0",
     "puppeteer": "^2.0.0",
     "remove-markdown": "^0.3.0",
     "sanitize-html": "^1.20.1",

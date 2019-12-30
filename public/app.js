@@ -1,4 +1,3 @@
-
 const displayArea = document.querySelector('.display-area');
 const plainTextArea = document.querySelector('.plain-text');
 const markdownArea = document.querySelector('.markdown');
@@ -7,12 +6,10 @@ const urlInput = document.querySelector('.url-input');
 const tabs = document.querySelector('.tabs');
 const spinner = document.querySelector('.spinner');
 
-urlInput.addEventListener('submit', event => getText(event));
-tabs.addEventListener('click', event => setDisplayArea(Number(event.target.dataset.tab)));
 
 function getText(event) {
   event.preventDefault();
-  spinner.classList.add('show');
+  toggleClass(spinner, true);
   const value = formatUrl(document.querySelector('.text-box').value);
   fetch(`./api/?url=${value}`)
     .then(response => response.json())
@@ -29,7 +26,7 @@ function setLocalStorage(text) {
 }
 
 function handleTabs(option) {
-  tabs.classList.add('show');
+  toggleClass(tabs, true);
   const tabsText = tabs.querySelectorAll('p');
   tabsText.forEach(tab => {
     const selected = 'selected-tab';
@@ -59,10 +56,18 @@ function setDisplayArea(option = 0) {
       plainTextArea.innerHTML = data.plain;
       break;
   }
-  spinner.classList.remove('show');
-  areaToShow[0].classList.add('show');
+  
+  toggleClass(spinner, false);
+  toggleClass(areaToShow[0], true);
 }
 
 function clearDisplayArea() {
-  displayArea.childNodes.forEach(node => node.classList && node.classList.remove('show'));
+  displayArea.childNodes.forEach(node => node.classList && toggleClass(node, false));
 }
+
+function toggleClass(element, show) {
+  return show ? element.classList.add('show') : element.classList.remove('show');
+}
+
+urlInput.addEventListener('submit', event => getText(event));
+tabs.addEventListener('click', event => setDisplayArea(Number(event.target.dataset.tab)));

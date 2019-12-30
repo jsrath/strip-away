@@ -1,10 +1,19 @@
 * {
-  font-family: monospace;
+  font-family: 'Chivo', sans-serif;
 }
 
-h1, h3 {
+.container > h1, .container > h3 {
   text-align: center;
   margin-bottom: 0;
+  font-weight: 400;
+}
+
+.container > h1 {
+  font-size: 28px;
+}
+
+.container > h3 {
+  font-size: 18px;
 }
 
 .container {
@@ -15,7 +24,7 @@ h1, h3 {
 }
 
 .url-input {
-  margin: 50px 0 30px;
+  margin: 30px 0 50px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -24,7 +33,7 @@ h1, h3 {
 .url-input p {
   margin: 0;
   margin-bottom: 2px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .text-box {
@@ -57,7 +66,7 @@ h1, h3 {
   width: 25px;
   height: 25px;
   background-color: #000;
-  margin: 50px auto;
+  margin: 30px auto;
   animation: spinner-rotate 1.2s infinite ease-in-out;
 }
 
@@ -110,11 +119,10 @@ h1, h3 {
 }
 
 .tabs p {
-  width: 120px;
+  width: 140px;
   padding: 10px 20px;
   border: 1px solid #777;
   margin: 0 -1px -1px 0;
-  font-weight: 700;
   color: #777;
 }
 

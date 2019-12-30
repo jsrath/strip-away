@@ -1,9 +1,9 @@
-const puppeteer = require('puppeteer');
 const TurndownService = require('turndown');
 const sanitizeHtml = require('sanitize-html');
-const prettier = require('prettier');
-const express = require('express');
+const minifyHtml = require('html-minifier');
 const removeMarkdown = require('remove-markdown');
+const puppeteer = require('puppeteer');
+const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,15 +25,15 @@ function cleanHTML(html) {
   const sanitized = sanitizeHtml(html, {
     allowedAttributes: { code: ['*'], pre: ['*'] },
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['h1', 'h2', 'title', 'sup']),
-    exclusiveFilter: frame => frame.tag === 'title' || frame.tag === 'sup' || frame.tag === 'iframe'
+    exclusiveFilter: frame => frame.tag === 'title' || frame.tag === 'sup' || frame.tag === 'iframe' || !frame.text.trim()
   });
-  return sanitized;
+  return minifyHtml.minify(sanitized, { collapseWhitespace: true });
 }
+
 
 function returnMarkdown(html) {
   const turndownService = new TurndownService({ codeBlockStyle: 'fenced', bulletListMarker: '-' });
-  const markdown = turndownService.turndown(html);
-  return prettier.format(markdown, { parser: 'markdown' });
+  return turndownService.turndown(html);
 }
 
 app.use(express.static('public'));
