@@ -14,7 +14,11 @@ async function returnHTML(url) {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   });
   const page = await browser.newPage();
-  await page.goto(decodeURIComponent(url));
+  try {
+    await page.goto(decodeURIComponent(url))
+  } catch {
+    return 'ERROR: Please check your URL'
+  }
   await page.waitFor(1000);
   const html = await page.content();
   await browser.close();
@@ -29,7 +33,6 @@ function cleanHTML(html) {
   });
   return minifyHtml.minify(sanitized, { collapseWhitespace: true });
 }
-
 
 function returnMarkdown(html) {
   const turndownService = new TurndownService({ codeBlockStyle: 'fenced', bulletListMarker: '-' });
@@ -48,6 +51,8 @@ app.get('/api', async (req, res) => {
     const plain = removeMarkdown(markdown);
     const output = { plain, markdown, simplified, raw };
     res.json(output);
+  } else {
+    res.status(400).send('400: Bad request, please check your url and try again')
   }
 });
 

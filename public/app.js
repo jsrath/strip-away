@@ -2,18 +2,27 @@ const displayArea = document.querySelector('.display-area');
 const plainTextArea = document.querySelector('.plain-text');
 const markdownArea = document.querySelector('.markdown');
 const simplifiedArea = document.querySelector('.simplified');
-const urlInput = document.querySelector('.url-input');  
+const urlInput = document.querySelector('.url-input');
 const tabs = document.querySelector('.tabs');
 const spinner = document.querySelector('.spinner');
 
+function handleErrors(response) {
+  return response.ok ? response : console.log(new Error(response.statusText));
+}
 
-function getText(event) {
+function fetchHTML(event) {
   event.preventDefault();
   toggleClass(spinner, true);
   const value = formatUrl(document.querySelector('.text-box').value);
   fetch(`./api/?url=${value}`)
+    .then(handleErrors)
     .then(response => response.json())
-    .then(text => setLocalStorage(text));
+    .then(text => setLocalStorage(text))
+    .catch(error => setLocalStorage({
+      plain: `Please check your request. Error: ${error.message}`,
+      markdown: '',
+      simplified: ''
+    }))
 }
 
 function formatUrl(url) {
@@ -56,7 +65,7 @@ function setDisplayArea(option = 0) {
       plainTextArea.innerHTML = data.plain;
       break;
   }
-  
+
   toggleClass(spinner, false);
   toggleClass(areaToShow[0], true);
 }
@@ -69,5 +78,5 @@ function toggleClass(element, show) {
   return show ? element.classList.add('show') : element.classList.remove('show');
 }
 
-urlInput.addEventListener('submit', event => getText(event));
+urlInput.addEventListener('submit', event => fetchHTML(event));
 tabs.addEventListener('click', event => setDisplayArea(Number(event.target.dataset.tab)));
