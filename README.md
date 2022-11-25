@@ -12,7 +12,7 @@
 <hr>
 <h1 align="center">Strip Away</h1>
 <h4 align="center">Return clean unformatted text, markdown and HTML from any website.</h4>
-<h3 align="center"><a href="https://stripaway.herokuapp.com">LIVE SITE</a></h3>
+<h3 align="center"><a href="https://strip-away.onrender.com">LIVE SITE</a></h3>
 
 Strip Away generates clean, unformatted text from any website. You can use it to strip away formatting, styles, images and links, leaving you with only the essential text.
 
